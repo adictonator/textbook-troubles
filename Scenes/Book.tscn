@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Book.gd" type="Script" id=1]
+[ext_resource path="res://assets/hud/Book.png" type="Texture" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.4, 0.5, 0.05 )
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 0.8, 1, 0.1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.372549, 0.407843, 0.294118, 1 )
+
+[node name="Book" type="RigidBody"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 1 )
+sprite = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="Mesh" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
