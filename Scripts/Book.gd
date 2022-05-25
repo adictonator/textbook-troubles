@@ -3,14 +3,10 @@ extends RigidBody
 export var genre: String = 'Action'
 export var sprite: Texture
 onready var hhh = get_viewport().get_node('Level/HUD')
+onready var bookshelves = get_viewport().get_node('Level/Bookshelves')
 var holder
 var picked_up
 var ind
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -38,6 +34,9 @@ func carry():
 	self.set_mode(1)
 	picked_up = true
 	ind = hhh.updatePanel(sprite)
+
+	# jumble shelves here
+	bookshelves.move()
 
 func throw(power):
 	leave()
