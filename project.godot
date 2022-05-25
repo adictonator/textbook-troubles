@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Books",
 "language": "GDScript",
 "path": "res://Scripts/Books.gd"
+}, {
+"base": "Spatial",
+"class": "Bookshelves",
+"language": "GDScript",
+"path": "res://Scripts/Bookshelves.gd"
 } ]
 _global_script_class_icons={
-"Books": ""
+"Books": "",
+"Bookshelves": ""
 }
 
 [application]

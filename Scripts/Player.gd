@@ -86,7 +86,7 @@ func _process(d):
 		if x.has_method("pick_up"):
 			$interaction_text.set_text("[E]  Pick up: " + x.get_name())
 		elif x.has_method("interact"):
-			$interaction_text.set_text("[F]  Interact with: " + x.get_name())
+			$interaction_text.set_text("[F]  Interact with: " + x.get_name() + ' --- ' + x.genre)
 		else:
 			$interaction_text.set_text("")
 	else:

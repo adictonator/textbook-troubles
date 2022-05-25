@@ -51,6 +51,7 @@ rect_min_size = Vector2( 300, 40 )
 size_flags_horizontal = 6
 script = ExtResource( 3 )
 minutes = 2
+seconds = null
 
 [node name="Min" type="Label" parent="Stats/Control"]
 margin_left = -20.0

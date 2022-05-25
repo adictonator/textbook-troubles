@@ -16,14 +16,13 @@ const XP_TABLE = {
 }
 
 var playerLevel = 0
+var instancedShelves = []
 
 func _ready() -> void:
 	_getCurrentLevel()
 
 func _getCurrentLevel():
-	#print('xx', XP_TABLE[str(playerLevel)])
 	return XP_TABLE[str(playerLevel)]
 
 func level():
-	#pass
 	return _getCurrentLevel()
