@@ -9,14 +9,13 @@ func _ready() -> void:
 
 
 func interact(player) -> void:
-	var book = player.carried_object
+	var book = Global.getBookInHand()
 	# Check if player is carrying anything.
 	if book != null:
-
 		# Match book and bookshelf genre.
 		if book.genre == genre:
 			book.placed()
 		else:
 			player.frustrate()
-			player.get_node('error').set_text('chal lavde')
+			player.showErrorMessage('This book doesn\'t belong here!')
 

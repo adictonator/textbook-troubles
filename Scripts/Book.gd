@@ -2,8 +2,9 @@ extends RigidBody
 
 export var genre: String = 'Action'
 export var sprite: Texture
-onready var hhh = get_viewport().get_node('Level/HUD')
 onready var bookshelves = get_viewport().get_node('Level/Bookshelves')
+onready var hud = get_viewport().get_node('Level/HUD')
+onready var booksCarrying = BooksCarrying.new(hud)
 var holder
 var picked_up
 var ind
@@ -23,25 +24,34 @@ func pick_up(player):
 
 func leave():
 	$CollisionShape.set_disabled(false)
-	holder.carried_object = null
 	self.set_mode(0)
 	picked_up = false
-	hhh.removeBook(ind)
 
 func carry():
 	$CollisionShape.set_disabled(true)
-	holder.carried_object.push_back(self)
 	self.set_mode(1)
 	picked_up = true
-	ind = hhh.updatePanel(sprite)
-
+	ind = booksCarrying.updatePanel(sprite, genre)
+	Global.booksCarrying.push_back(self)
 	# jumble shelves here
 	bookshelves.move()
 
 func throw(power):
-	leave()
+	Global.booksCarrying[Global.selectedBookIdx].queue_free()
+	Global.booksCarrying.remove(Global.selectedBookIdx)
 	apply_impulse(Vector3(), holder.look_vector * Vector3(power, power, power))
+	leave()
+	hud.removeBook(0)
 
 func placed():
-	leave()
-	queue_free()
+	Global.booksCarrying[Global.selectedBookIdx].queue_free()
+	Global.booksCarrying.remove(Global.selectedBookIdx)
+	#Global.selectedBookIdx = 0
+
+	var rem = hud.removeBook(Global.selectedBookIdx)
+
+	if rem > 0:
+		booksCarrying.updateSiblings(0)
+		leave()
+		# give xp
+		Global.playerXP += 5

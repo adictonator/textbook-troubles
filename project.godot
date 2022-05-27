@@ -14,14 +14,14 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Books.gd"
 }, {
-"base": "Spatial",
-"class": "Bookshelves",
+"base": "Node",
+"class": "BooksCarrying",
 "language": "GDScript",
-"path": "res://Scripts/Bookshelves.gd"
+"path": "res://Scripts/Utility/ActiveBook.gd"
 } ]
 _global_script_class_icons={
 "Books": "",
-"Bookshelves": ""
+"BooksCarrying": ""
 }
 
 [application]

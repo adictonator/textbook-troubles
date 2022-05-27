@@ -1,9 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/hud/Heart.png" type="Texture" id=1]
 [ext_resource path="res://assets/hud/Golden Coin.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/LevelTimer.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/HUD.gd" type="Script" id=7]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 0.613281, 0.613281, 0.613281, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0 )
@@ -11,6 +18,13 @@ colors = PoolColorArray( 0.643929, 0.960938, 0.0788269, 1 )
 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0, 0, 0, 0.117647 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 7 )
@@ -50,8 +64,6 @@ margin_bottom = 44.0
 rect_min_size = Vector2( 300, 40 )
 size_flags_horizontal = 6
 script = ExtResource( 3 )
-minutes = 2
-seconds = null
 
 [node name="Min" type="Label" parent="Stats/Control"]
 margin_left = -20.0
@@ -130,6 +142,7 @@ rect_min_size = Vector2( 250, 10 )
 size_flags_horizontal = 5
 size_flags_vertical = 5
 value = 45.0
+texture_under = SubResource( 4 )
 texture_progress = SubResource( 2 )
 nine_patch_stretch = true
 
@@ -150,11 +163,16 @@ margin_left = -100.0
 margin_top = -218.0
 margin_right = 100.0
 margin_bottom = -178.0
-rect_min_size = Vector2( 200, 40 )
+rect_min_size = Vector2( 550, 140 )
+custom_styles/panel = SubResource( 5 )
 
 [node name="Wrapper" type="HBoxContainer" parent="BooksPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-alignment = 1
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+custom_constants/separation = 10
 
 [connection signal="timeout" from="Stats/Control/Timer" to="Stats/Control" method="_on_Timer_timeout"]

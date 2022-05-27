@@ -1,6 +1,5 @@
 extends Spatial
 
-class_name Bookshelves
 var random = RandomNumberGenerator.new()
 var bookshelf = preload('res://Scenes/Bookshelf.tscn')
 

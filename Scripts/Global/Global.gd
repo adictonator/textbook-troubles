@@ -16,7 +16,12 @@ const XP_TABLE = {
 }
 
 var playerLevel = 0
+var playerXP = 0
+var booksCarrying = []
 var instancedShelves = []
+var selectorIndex
+var selectedBook
+var selectedBookIdx = 0
 
 func _ready() -> void:
 	_getCurrentLevel()
@@ -26,3 +31,6 @@ func _getCurrentLevel():
 
 func level():
 	return _getCurrentLevel()
+
+func getBookInHand():
+	return booksCarrying[selectedBookIdx] if booksCarrying.size() > 0 else null

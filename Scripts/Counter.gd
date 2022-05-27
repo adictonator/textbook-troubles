@@ -6,12 +6,11 @@ var book
 var h = Books.new()
 func _ready() -> void:
 	#p = get_parent()
-	var g = h.generateBook()
-	print('xxss', g)
+	for _i in range(h.Genres.size()):
+		var t = h.generateBook()
+		add_child(t)
 	# generate a couple of books classes randomly
 	# let's generate 10 books for first level
-
-	add_child(g)
 
 		#pass
 		#b.mode = 2

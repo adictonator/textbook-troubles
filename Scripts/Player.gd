@@ -3,10 +3,6 @@ extends KinematicBody
 const SPEED = 10
 const GRAVITY = 8
 var velocity = Vector3.ZERO
-var booksHolding = 0
-
-
-
 var carried_object = []
 var throw_power = 0
 
@@ -67,9 +63,6 @@ const STAIR_JUMP_HEIGHT = 6
 const FRUSTO_VALUE = 20
 var bookSprite
 var frustoValue: int = 0
-var xp: int = 60
-
-var carryingBooks = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -77,14 +70,14 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _process(d):
-
-#######################################################################################################
-# INTERACTIONS
-
 	if $Yaw/Camera/InteractionRay.is_colliding():
 		var x = $Yaw/Camera/InteractionRay.get_collider()
+
+		if x == null:
+			return
+
 		if x.has_method("pick_up"):
-			$interaction_text.set_text("[E]  Pick up: " + x.get_name())
+			$interaction_text.set_text("[E]  Pick up: " + x.get_name() + ' --- ' + x.genre)
 		elif x.has_method("interact"):
 			$interaction_text.set_text("[F]  Interact with: " + x.get_name() + ' --- ' + x.genre)
 		else:
@@ -209,19 +202,20 @@ func _process_movements(delta):
 
 	#throwing(delta)
 
-func _input(event):
-	#if Input.is_key_pressed(KEY_R):
-	#	get_tree().reload_current_scene()
+func showErrorMessage(msg):
+	$error.set_text(msg)
+	$error.visible = true
+	$error/Timer.start()
 
-	# If already carries an object - release it, otherwise (if ray is colliding) pick an object up
+func _input(event):
 	if Input.is_action_just_pressed("pick_up"):
-		if carried_object.size() <= 1:
+		if Global.booksCarrying.size() <= 5:
 			if $Yaw/Camera/InteractionRay.is_colliding():
 				var x = $Yaw/Camera/InteractionRay.get_collider()
 				if x.has_method("pick_up"):
 					x.pick_up(self)
 		else:
-			$error.set_text('bs kr yar')
+			showErrorMessage('You cannot carry more books right now!')
 		#if carried_object.size() > 0:
 		#	#carryingBooks.append()
 		#	carried_object.pick_up(self)
@@ -232,9 +226,11 @@ func _input(event):
 		#			x.pick_up(self)
 
 	# Hold Left Mouse Button (LMB) to throw carried object
-	if Input.is_action_just_released("LMB"):
-		if carried_object.size() > 0:
-			carried_object.throw(throw_power)
+	if Input.is_action_just_pressed("LMB"):
+		if Global.booksCarrying.size() > 0:
+			var bookInHand = Global.getBookInHand()
+			if bookInHand.has_method("throw"):
+				bookInHand.throw(throw_power)
 		throw_power = 0
 
 	# Interact
@@ -264,3 +260,8 @@ func frustrate() -> void:
 	if frustoValue >= 100:
 		# do some here
 		pass
+
+
+func _onErrorMessageTimeout() -> void:
+	$error.set_text('')
+	$error.visible = false

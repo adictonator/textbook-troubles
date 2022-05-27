@@ -26,3 +26,7 @@ func generateBook():
 
 	# @todo: change book texture and color based on their genre.
 	return newBook
+
+func generateBooks():
+	for _i in range(Genres.size()):
+		generateBook()
