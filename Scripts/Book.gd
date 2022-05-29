@@ -10,7 +10,7 @@ var picked_up
 var ind
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if picked_up:
 		set_global_transform(holder.get_node("Yaw/Camera/pickup_pos").get_global_transform())
 
@@ -43,6 +43,9 @@ func throw(power):
 	leave()
 	hud.removeBook(0)
 
+	if hud.books.get_child_count() <= 0:
+		hud.get_node('BooksPanel').visible = false
+
 func placed():
 	Global.booksCarrying[Global.selectedBookIdx].queue_free()
 	Global.booksCarrying.remove(Global.selectedBookIdx)
@@ -55,3 +58,5 @@ func placed():
 		leave()
 		# give xp
 		Global.playerXP += 5
+	else:
+		hud.get_node('BooksPanel').visible = false
