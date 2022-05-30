@@ -207,7 +207,7 @@ func showErrorMessage(msg):
 	$error.visible = true
 	$error/Timer.start()
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("pick_up"):
 		if Global.booksCarrying.size() <= 5:
 			if $Yaw/Camera/InteractionRay.is_colliding():
